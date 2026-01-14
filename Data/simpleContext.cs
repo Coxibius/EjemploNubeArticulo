@@ -13,9 +13,10 @@ namespace simple.Data
         public simpleContext(DbContextOptions<simpleContext> options)
             : base(options)
         {
+            
         }
 
-        
+        public DbSet<SistemasComputadora> SistemasComputadoras { get; set; }        
         public DbSet<Articulo> Articulo { get; set; } = default!;
         public DbSet<RegistroEstudiante> RegistroEstudiantes { get; set; }
         public DbSet<BibliotecaLibro> BibliotecaLibros { get; set; } = default!;

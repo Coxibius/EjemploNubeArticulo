@@ -7,11 +7,28 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace simple.Migrations
 {
     /// <inheritdoc />
-    public partial class Caja1Migration1 : Migration
+    public partial class MigracionInicialCompleta : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ArchivosArchivos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Codigo = table.Column<string>(type: "text", nullable: false),
+                    Titulo = table.Column<string>(type: "text", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "date", nullable: false),
+                    TipoDocumento = table.Column<string>(type: "text", nullable: false),
+                    Estado = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArchivosArchivos", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Articulo",
                 columns: table => new
@@ -137,6 +154,23 @@ namespace simple.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ModalidadesGrado",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nombre = table.Column<string>(type: "text", nullable: false),
+                    Descripcion = table.Column<string>(type: "text", nullable: false),
+                    DuracionMeses = table.Column<int>(type: "integer", nullable: false),
+                    RequiereTesis = table.Column<bool>(type: "boolean", nullable: false),
+                    Costo = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModalidadesGrado", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProduccionContenidos",
                 columns: table => new
                 {
@@ -151,6 +185,42 @@ namespace simple.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProduccionContenidos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RectoradoAutoridades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreCompleto = table.Column<string>(type: "text", nullable: false),
+                    Cargo = table.Column<string>(type: "text", nullable: false),
+                    TituloAcademico = table.Column<string>(type: "text", nullable: false),
+                    EmailInstitucional = table.Column<string>(type: "text", nullable: false),
+                    FechaInicioGestion = table.Column<DateTime>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RectoradoAutoridades", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegistroEstudiantes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NombreCompleto = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CodigoEstudiante = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Carrera = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "date", nullable: false),
+                    PromedioCalificaciones = table.Column<decimal>(type: "numeric", nullable: false),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistroEstudiantes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,11 +239,31 @@ namespace simple.Migrations
                 {
                     table.PrimaryKey("PK_SecretariaGeneralDocumentos", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "SistemasComputadoras",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Marca = table.Column<string>(type: "text", nullable: false),
+                    Modelo = table.Column<string>(type: "text", nullable: false),
+                    MemoriaRamGB = table.Column<int>(type: "integer", nullable: false),
+                    Precio = table.Column<decimal>(type: "numeric", nullable: false),
+                    TieneGraficaDedicada = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SistemasComputadoras", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ArchivosArchivos");
+
             migrationBuilder.DropTable(
                 name: "Articulo");
 
@@ -196,10 +286,22 @@ namespace simple.Migrations
                 name: "ContabilidadUsuarios");
 
             migrationBuilder.DropTable(
+                name: "ModalidadesGrado");
+
+            migrationBuilder.DropTable(
                 name: "ProduccionContenidos");
 
             migrationBuilder.DropTable(
+                name: "RectoradoAutoridades");
+
+            migrationBuilder.DropTable(
+                name: "RegistroEstudiantes");
+
+            migrationBuilder.DropTable(
                 name: "SecretariaGeneralDocumentos");
+
+            migrationBuilder.DropTable(
+                name: "SistemasComputadoras");
         }
     }
 }

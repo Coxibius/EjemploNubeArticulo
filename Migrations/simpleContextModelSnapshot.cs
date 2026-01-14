@@ -450,6 +450,36 @@ namespace simple.Migrations
 
                     b.ToTable("RegistroEstudiantes");
                 });
+
+            modelBuilder.Entity("simple.Models.SistemasComputadora", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MemoriaRamGB")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("TieneGraficaDedicada")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SistemasComputadoras");
+                });
 #pragma warning restore 612, 618
         }
     }

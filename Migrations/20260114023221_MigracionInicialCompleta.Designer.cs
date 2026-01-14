@@ -12,8 +12,8 @@ using simple.Data;
 namespace simple.Migrations
 {
     [DbContext(typeof(simpleContext))]
-    [Migration("20260113022342_ArchivosMigration1")]
-    partial class ArchivosMigration1
+    [Migration("20260114023221_MigracionInicialCompleta")]
+    partial class MigracionInicialCompleta
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -452,6 +452,36 @@ namespace simple.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RegistroEstudiantes");
+                });
+
+            modelBuilder.Entity("simple.Models.SistemasComputadora", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("MemoriaRamGB")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("TieneGraficaDedicada")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SistemasComputadoras");
                 });
 #pragma warning restore 612, 618
         }
